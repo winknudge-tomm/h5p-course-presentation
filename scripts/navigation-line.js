@@ -4,7 +4,6 @@ H5P.CoursePresentation = H5P.CoursePresentation || {};
 H5P.CoursePresentation.NavigationLine = (function ($) {
 
   function NavigationLine(coursePresentation) {
-    console.log("navigation line? ", coursePresentation)
     this.cp = coursePresentation;
     this.initProgressbar(this.cp.slidesWithSolutions);
     this.initFooter();
@@ -135,6 +134,7 @@ H5P.CoursePresentation.NavigationLine = (function ($) {
 
   NavigationLine.prototype.createProgressbarPopup = function (event, $parent) {
     var progressbarTitle = $parent.data('keyword');
+    var isTopPositioned = $parent.closest('.h5p-progressbar').hasClass('position-top');
 
     if (this.$progressbarPopup === undefined) {
       this.$progressbarPopup = H5P.jQuery('<div/>', {
@@ -155,10 +155,18 @@ H5P.CoursePresentation.NavigationLine = (function ($) {
       leftPos -= (width / (this.cp.$container.width() / 100));
     }
 
-    this.$progressbarPopup.css({
-      'left': leftPos + '%',
-      'bottom': height
-    });
+    // console.log($parent);
+    if (!isTopPositioned) {
+      this.$progressbarPopup.css({
+        'left': leftPos + '%',
+        'bottom': height
+      });
+    } else {
+      this.$progressbarPopup.css({
+        'left': leftPos + '%',
+        'top': '4%' // default to 4% for top positioned
+      });
+    }
   };
 
   NavigationLine.prototype.removeProgressbarPopup = function () {

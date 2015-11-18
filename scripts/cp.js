@@ -138,17 +138,12 @@ H5P.CoursePresentation.prototype.attach = function ($container) {
   this.setActivityStarted();
 
   //set the progress bar position based on config
-  var progressBarDom = '  <div class="h5p-progressbar"></div>';
   var progressBarTopPlaceHolder = '';
-  var progressBarBottomPlaceHolder = progressBarDom;
+  var progressBarBottomPlaceHolder = '  <div class="h5p-progressbar"></div>';
 
-  console.log("mpbt: ",this.moveProgressToTop)
   if(this.moveProgressToTop) {
-    console.log("Move to Top");
-    progressBarTopPlaceHolder = progressBarDom;
+    progressBarTopPlaceHolder = '  <div class="h5p-progressbar position-top"></div>';
     progressBarBottomPlaceHolder = '';
-  } else {
-    console.log("Keep at bottom");
   }
 
   var html =
