@@ -4,6 +4,7 @@ H5P.CoursePresentation = H5P.CoursePresentation || {};
 H5P.CoursePresentation.NavigationLine = (function ($) {
 
   function NavigationLine(coursePresentation) {
+    console.log("navigation line? ", coursePresentation)
     this.cp = coursePresentation;
     this.initProgressbar(this.cp.slidesWithSolutions);
     this.initFooter();

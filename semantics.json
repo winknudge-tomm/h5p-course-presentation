@@ -489,6 +489,13 @@
         "label": "Hide Summary Slide",
         "description": "Hides the summary slide.",
         "default": false
+      },
+      {
+        "name": "moveProgressToTop",
+        "type": "boolean",
+        "label": "Progress Bar Top",
+        "description": "Moves the progress bar to the top of the interaction",
+        "default": false
       }
     ]
   }

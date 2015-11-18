@@ -192,6 +192,7 @@
 /* ----------------------------------------- Progress bar --------------------------------------------- */
 
 .h5p-course-presentation .h5p-progressbar {
+  background-color: green;
   width: 100%;
   overflow: visible;
   height: 3.5%;

@@ -11,6 +11,7 @@ var H5P = H5P || {};
  */
 H5P.CoursePresentation = function (params, id, extras) {
   H5P.EventDispatcher.call(this);
+
   var that = this;
   this.presentation = params.presentation;
   this.slides = this.presentation.slides;
@@ -72,6 +73,9 @@ H5P.CoursePresentation = function (params, id, extras) {
     this.overrideShowSolutionsButton = !!params.override.overrideShowSolutionButton;
     this.overrideRetry = !!params.override.overrideRetry;
     this.hideSummarySlide = !!params.override.hideSummarySlide;
+    this.moveProgressToTop = !!params.override.moveProgressToTop;
+
+    console.log("all params override: ", params.override)
   }
   this.on('resize', this.resize, this);
 
@@ -133,15 +137,30 @@ H5P.CoursePresentation.prototype.attach = function ($container) {
   var that = this;
   this.setActivityStarted();
 
+  //set the progress bar position based on config
+  var progressBarDom = '  <div class="h5p-progressbar"></div>';
+  var progressBarTopPlaceHolder = '';
+  var progressBarBottomPlaceHolder = progressBarDom;
+
+  console.log("mpbt: ",this.moveProgressToTop)
+  if(this.moveProgressToTop) {
+    console.log("Move to Top");
+    progressBarTopPlaceHolder = progressBarDom;
+    progressBarBottomPlaceHolder = '';
+  } else {
+    console.log("Keep at bottom");
+  }
+
   var html =
           '<div class="h5p-wrapper" tabindex="0">' +
+          progressBarTopPlaceHolder +
           '  <div class="h5p-box-wrapper">' +
           '    <div class="h5p-presentation-wrapper">' +
           '      <div class="h5p-keywords-wrapper"></div>' +
           '      <div class="h5p-slides-wrapper"></div>' +
           '    </div>' +
           '  </div>' +
-          '  <div class="h5p-progressbar"></div>' +
+          progressBarBottomPlaceHolder +
           '  <div class="h5p-footer"></div>' +
           '</div>';
 
@@ -211,6 +230,8 @@ H5P.CoursePresentation.prototype.attach = function ($container) {
   this.$keywordsWrapper = $presentationWrapper.children('.h5p-keywords-wrapper');
   this.$progressbar = this.$wrapper.children('.h5p-progressbar');
   this.$footer = this.$wrapper.children('.h5p-footer');
+
+  // add "top class" to progress bar If config requires
 
   this.initKeywords = (this.presentation.keywordListEnabled === undefined || this.presentation.keywordListEnabled === true || this.editor !== undefined);
   this.isSolutionMode = false;
