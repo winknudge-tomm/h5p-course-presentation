@@ -74,8 +74,13 @@ H5P.CoursePresentation = function (params, id, extras) {
     this.overrideRetry = !!params.override.overrideRetry;
     this.hideSummarySlide = !!params.override.hideSummarySlide;
     this.moveProgressToTop = !!params.override.moveProgressToTop;
+  }
 
-    console.log("all params override: ", params.override)
+  // Setup "presentation-progress" event listener for all sub modules.
+  if (!H5P.jQuery._data( H5P.jQuery(H5P)[0], "events" )) {
+    H5P.jQuery(H5P).on( "presentation-progress", function() {
+      that.nextSlide();
+    });
   }
   this.on('resize', this.resize, this);
 
