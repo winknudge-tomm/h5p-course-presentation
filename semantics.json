@@ -491,6 +491,13 @@
         "default": false
       },
       {
+        "name": "hideProgressBar",
+        "type": "boolean",
+        "label": "Hide Progress Bar",
+        "description": "Hide the progress bar, makes 'progress bar top' option defunct",
+        "default": false
+      },
+      {
         "name": "moveProgressToTop",
         "type": "boolean",
         "label": "Progress Bar Top",
@@ -500,7 +507,7 @@
       {
         "name": "hideBottomOptions",
         "type": "boolean",
-        "label": "Hide Bottom options",
+        "label": "Hide Bottom Options",
         "description": "Hide the extra bottom options bar which contains the extra nav, fullscreen and print etc",
         "default": false
       }

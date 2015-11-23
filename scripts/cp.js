@@ -75,6 +75,7 @@ H5P.CoursePresentation = function (params, id, extras) {
     this.hideSummarySlide = !!params.override.hideSummarySlide;
     this.moveProgressToTop = !!params.override.moveProgressToTop;
     this.hideBottomOptions = !!params.override.hideBottomOptions;
+    this.hideProgressBar = !!params.override.hideProgressBar;
   }
 
   // Setup "presentation-progress" event listener for all sub modules.
@@ -143,17 +144,25 @@ H5P.CoursePresentation.prototype.attach = function ($container) {
   var that = this;
   this.setActivityStarted();
 
-  //set the progress bar position based on config
+  //set the progress bar position based on config - defualt setup
   var progressBarTopPlaceHolder = '';
   var progressBarBottomPlaceHolder = '  <div class="h5p-progressbar"></div>';
   var footerBarPlaceHolder = '  <div class="h5p-footer"></div>';
   var footerBarParentClass = '';
 
+  // move progress bar to top
   if(this.moveProgressToTop) {
     progressBarTopPlaceHolder = '  <div class="h5p-progressbar position-top"></div>';
     progressBarBottomPlaceHolder = '';
   }
 
+  // hide whole progress bar
+  if(this.hideProgressBar) {
+    progressBarTopPlaceHolder = '';
+    progressBarBottomPlaceHolder = '';
+  }
+
+  // hide footer bar
   if(this.hideBottomOptions) {
     footerBarPlaceHolder = '';
     footerBarParentClass = 'no-footer';
