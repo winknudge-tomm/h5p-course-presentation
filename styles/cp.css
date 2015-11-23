@@ -95,6 +95,9 @@
 .h5p-course-presentation .h5p-box-wrapper.no-footer {
   height: 97%;
 }
+.h5p-course-presentation .h5p-box-wrapper.full-height {
+  height: 100%;
+}
 
 .h5p-course-presentation.h5p-fullscreen .h5p-box-wrapper {
   margin: 0.1em 0;

@@ -166,6 +166,10 @@ H5P.CoursePresentation.prototype.attach = function ($container) {
   if(this.hideBottomOptions) {
     footerBarPlaceHolder = '';
     footerBarParentClass = 'no-footer';
+
+    if(this.hideProgressBar) {
+      footerBarParentClass = 'full-height';
+    }
   }
 
   var html =

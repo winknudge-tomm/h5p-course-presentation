@@ -494,7 +494,7 @@
         "name": "hideProgressBar",
         "type": "boolean",
         "label": "Hide Progress Bar",
-        "description": "Hide the progress bar, makes 'progress bar top' option defunct",
+        "description": "Hide the progress bar, makes 'progress bar top' option defunct, NOTE: won't show in edit mode",
         "default": false
       },
       {
