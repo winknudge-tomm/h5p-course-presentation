@@ -496,6 +496,13 @@
         "label": "Progress Bar Top",
         "description": "Moves the progress bar to the top of the interaction, NOTE: won't show in edit mode",
         "default": false
+      },
+      {
+        "name": "hideBottomOptions",
+        "type": "boolean",
+        "label": "Hide Bottom options",
+        "description": "Hide the extra bottom options bar which contains the extra nav, fullscreen and print etc",
+        "default": false
       }
     ]
   }

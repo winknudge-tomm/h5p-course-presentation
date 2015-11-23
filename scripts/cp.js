@@ -74,6 +74,7 @@ H5P.CoursePresentation = function (params, id, extras) {
     this.overrideRetry = !!params.override.overrideRetry;
     this.hideSummarySlide = !!params.override.hideSummarySlide;
     this.moveProgressToTop = !!params.override.moveProgressToTop;
+    this.hideBottomOptions = !!params.override.hideBottomOptions;
   }
 
   // Setup "presentation-progress" event listener for all sub modules.
@@ -145,24 +146,31 @@ H5P.CoursePresentation.prototype.attach = function ($container) {
   //set the progress bar position based on config
   var progressBarTopPlaceHolder = '';
   var progressBarBottomPlaceHolder = '  <div class="h5p-progressbar"></div>';
+  var footerBarPlaceHolder = '  <div class="h5p-footer"></div>';
+  var footerBarParentClass = '';
 
   if(this.moveProgressToTop) {
     progressBarTopPlaceHolder = '  <div class="h5p-progressbar position-top"></div>';
     progressBarBottomPlaceHolder = '';
   }
 
+  if(this.hideBottomOptions) {
+    footerBarPlaceHolder = '';
+    footerBarParentClass = 'no-footer';
+  }
+
   var html =
-          '<div class="h5p-wrapper" tabindex="0">' +
-          progressBarTopPlaceHolder +
-          '  <div class="h5p-box-wrapper">' +
-          '    <div class="h5p-presentation-wrapper">' +
-          '      <div class="h5p-keywords-wrapper"></div>' +
-          '      <div class="h5p-slides-wrapper"></div>' +
-          '    </div>' +
-          '  </div>' +
-          progressBarBottomPlaceHolder +
-          '  <div class="h5p-footer"></div>' +
-          '</div>';
+    '<div class="h5p-wrapper" tabindex="0">' +
+    progressBarTopPlaceHolder +
+    '  <div class="h5p-box-wrapper ' + footerBarParentClass + '">' +
+    '    <div class="h5p-presentation-wrapper">' +
+    '      <div class="h5p-keywords-wrapper"></div>' +
+    '      <div class="h5p-slides-wrapper"></div>' +
+    '    </div>' +
+    '  </div>' +
+    progressBarBottomPlaceHolder +
+    footerBarPlaceHolder +
+    '</div>';
 
   $container.addClass('h5p-course-presentation').html(html);
 
