@@ -49,7 +49,7 @@
                       "H5P.Link 1.1",
                       "H5P.Image 1.0",
                       "H5P.Video 1.1",
-                      "H5P.ImageHotspotQuestion 1.1",
+                      "H5P.IFrameEmbed 1.0",
                       "H5P.Audio 1.2",
                       "H5P.Blanks 1.4",
                       "H5P.SingleChoiceSet 1.3",
