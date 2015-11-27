@@ -1,5 +1,5 @@
 var H5P = H5P || {};
-var H5PLocalStorage = new H5PLocalStorage();
+// var H5PLocalStorage = new H5PLocalStorage();
 /**
  * Constructor.
  *
@@ -76,7 +76,7 @@ H5P.CoursePresentation = function (params, id, extras) {
     this.moveProgressToTop = !!params.override.moveProgressToTop;
     this.hideBottomOptions = !!params.override.hideBottomOptions;
     this.hideProgressBar = !!params.override.hideProgressBar;
-    this.enableSaveState = !!params.persistentStorage.enableSave;
+    // this.enableSaveState = !!params.persistentStorage.enableSave;
   }
 
   // Setup "presentation-progress" event listener for all sub modules.
@@ -98,9 +98,9 @@ H5P.CoursePresentation = function (params, id, extras) {
     }
   });
 
-  H5PLocalStorage.init(function(){
-    console.log("Initiated local storage");
-  });
+  // H5PLocalStorage.init(function(){
+  //   console.log("Initiated local storage");
+  // });
 
 };
 
@@ -346,12 +346,12 @@ H5P.CoursePresentation.prototype.attach = function ($container) {
 
   this.summarySlideObject = new H5P.CoursePresentation.SummarySlide(this, $summarySlide);
 
-  var previousSaveState = H5PLocalStorage.get(this.contentId);
-  if(previousSaveState && previousSaveState.activeSlide >= 0) {
-    this.previousState = {
-      progress: previousSaveState.activeSlide
-    }
-  }
+  // var previousSaveState = H5PLocalStorage.get(this.contentId);
+  // if(previousSaveState && previousSaveState.activeSlide >= 0) {
+  //   this.previousState = {
+  //     progress: previousSaveState.activeSlide
+  //   }
+  // }
 
   if (this.previousState && this.previousState.progress) {
     this.jumpToSlide(this.previousState.progress);
@@ -1267,11 +1267,11 @@ H5P.CoursePresentation.prototype.attachAllElements = function () {
  * @returns {Boolean} Always true.
  */
 H5P.CoursePresentation.prototype.jumpToSlide = function (slideNumber, noScroll) {
-  H5PLocalStorage.save(this.contentId, {
-    activeSlide: slideNumber
-  }, function(){
-    console.log("called back?");
-  })
+  // H5PLocalStorage.save(this.contentId, {
+  //   activeSlide: slideNumber
+  // }, function(){
+  //   console.log("called back?");
+  // })
   var that = this;
   if (this.editor === undefined) {
     var progressedEvent = this.createXAPIEventTemplate('progressed');
