@@ -68,6 +68,16 @@
       "machineName": "H5PEditor.CoursePresentation",
       "majorVersion": 1,
       "minorVersion": 6
+    },
+    {
+      "machineName": "H5PEditor.Wizard",
+      "majorVersion": 1,
+      "minorVersion": 0
+    },
+    {
+      "machineName": "H5PEditor.ImageHotspotQuestion",
+      "majorVersion": 1,
+      "minorVersion": 1
     }
   ]
 }
