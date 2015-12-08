@@ -516,6 +516,21 @@
     ]
   },
   {
+    "name": "optionalExtras",
+    "type": "group",
+    "label": "Optional Extras",
+    "description": "Options to do with styling",
+    "optional": true,
+    "fields": [
+      {
+        "name": "optionalStyling",
+        "type": "file",
+        "optional": true,
+        "label": "Optional Styling"
+      }
+    ]
+  },
+  {
     "name": "persistentStorage",
     "type": "group",
     "label": "Save States",

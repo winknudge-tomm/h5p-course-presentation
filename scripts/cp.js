@@ -79,6 +79,10 @@ H5P.CoursePresentation = function (params, id, extras) {
     // this.enableSaveState = !!params.persistentStorage.enableSave;
   }
 
+  if (!!params.optionalExtras) {
+    this.customCSSPath = H5P.getPath(params.optionalExtras.path, this.contentId);
+  }
+
   // Setup "presentation-progress" event listener for all sub modules.
   if (!H5P.jQuery._data( H5P.jQuery(H5P)[0], "events" )) {
     H5P.jQuery(H5P).on( "presentation-progress", function() {
@@ -149,7 +153,9 @@ H5P.CoursePresentation.prototype.getCurrentState = function () {
 H5P.CoursePresentation.prototype.attach = function ($container) {
   var that = this;
   this.setActivityStarted();
-
+  if(this.customCSSPath) {
+    console.log(H5P.jQuery('head').append('<link rel="stylesheet" href="' + this.customCSSPath + '">'));
+  }
   //set the progress bar position based on config - defualt setup
   var progressBarTopPlaceHolder = '';
   var progressBarBottomPlaceHolder = '  <div class="h5p-progressbar"></div>';
