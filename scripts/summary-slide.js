@@ -21,6 +21,7 @@ H5P.CoursePresentation.SummarySlide = (function ($, JoubelUI) {
    * @param {$} $summarySlide Summary slide that will be updated
    */
   SummarySlide.prototype.updateSummarySlide = function (slideNumber, noJump) {
+    console.log("updating summarySlide", slideNumber, noJump);
     var that = this;
     // Validate update.
     var isValidUpdate = (this.cp.editor === undefined) && (this.$summarySlide !== undefined) && (slideNumber >= this.cp.slides.length - 1);
@@ -78,48 +79,97 @@ H5P.CoursePresentation.SummarySlide = (function ($, JoubelUI) {
     // Button container ref
     var $summaryFooter = $('.h5p-summary-footer', that.$summarySlide);
 
-    // Show solutions button
-    JoubelUI.createButton({
-      'class': 'h5p-show-solutions',
-      html: that.cp.l10n.showSolutions,
-      on: {
-        click: function (event) {
-          // Enable solution mode
-          that.toggleSolutionMode(true);
-          that.cp.jumpToSlide(0);
-          // event.preventDefault();
-        }
-      },
-      appendTo: $summaryFooter
-    });
 
-    // Show solutions button
-    JoubelUI.createButton({
-      'class': 'h5p-cp-retry-button',
-      html: that.cp.l10n.retry,
-      on: {
-        click: function (event) {
-          that.cp.resetTask();
-          // event.preventDefault();
-        }
-      },
-      appendTo: $summaryFooter
-    });
+    // here we need to check for completed percentage 
+    // console.log(totalScores);
+    // console.log("this & that ", this.cp.summaryBrackets.enableBrackets)
 
-    // Only make export button if there is an export area in CP
-    if (that.cp.hasAnswerElements) {
+    if (this.cp.summaryBrackets && this.cp.summaryBrackets.enableBrackets) {
+      var summaryBrackets = this.cp.summaryBrackets;
+      var thePercent = totalScores.totalPercentage;
+      // console.log("total scores: ", totalScores.totalPercentage);
+      // console.log("summary bracketing enabled: ", summaryBrackets.brackets);
+
+      $.each(summaryBrackets.brackets, function(index, value) {
+        if (thePercent >= value.lowBracket && thePercent <= value.highBracket) {
+          createMultipleButtons(value.buttons);
+        }
+      }); 
+
+      function createMultipleButtons(buttonObjs) {
+
+        $.each(buttonObjs, function (index, value) {
+
+          // set what click does based on content
+          var clickedFunction = function (){
+            if (value.link) { // url link
+              window.parent.location.href = value.link;
+            } else if (value.slide) { // jump to slide
+              that.cp.jumpToSlide( (value.slide -1) );
+            } else if (value.resetQuestion) { // reset question
+              that.cp.resetTask();
+            }
+          };
+
+          // create a button
+          JoubelUI.createButton({
+            'class': 'h5p-custom',
+            html: value.text,
+            on: {
+              click: function (event) {
+                clickedFunction();
+              }
+            },
+            appendTo: $summaryFooter
+          });
+        })
+
+      }
+    } else { // show default buttons
+      // Show solutions button
       JoubelUI.createButton({
-        'class': 'h5p-eta-export',
-        html: that.cp.l10n.exportAnswers,
+        'class': 'h5p-show-solutions',
+        html: that.cp.l10n.showSolutions,
         on: {
           click: function (event) {
-            H5P.ExportableTextArea.Exporter.run(that.cp.slides, that.cp.elementInstances);
+            // Enable solution mode
+            that.toggleSolutionMode(true);
+            that.cp.jumpToSlide(0);
             // event.preventDefault();
           }
         },
         appendTo: $summaryFooter
       });
+
+      // Show solutions button
+      JoubelUI.createButton({
+        'class': 'h5p-cp-retry-button',
+        html: that.cp.l10n.retry,
+        on: {
+          click: function (event) {
+            that.cp.resetTask();
+            // event.preventDefault();
+          }
+        },
+        appendTo: $summaryFooter
+      });
+
+      // Only make export button if there is an export area in CP
+      if (that.cp.hasAnswerElements) {
+        JoubelUI.createButton({
+          'class': 'h5p-eta-export',
+          html: that.cp.l10n.exportAnswers,
+          on: {
+            click: function (event) {
+              H5P.ExportableTextArea.Exporter.run(that.cp.slides, that.cp.elementInstances);
+              // event.preventDefault();
+            }
+          },
+          appendTo: $summaryFooter
+        });
+      }
     }
+
   };
 
   /**

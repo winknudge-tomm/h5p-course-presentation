@@ -531,19 +531,87 @@
     ]
   },
   {
-    "name": "persistentStorage",
+    "name": "progressionSlide",
     "type": "group",
-    "label": "Save States",
-    "description": "These options will let you enable / disable save states",
+    "label": "Progression Slide Onward Journey",
+    "description": "Progression Slide Points",
     "optional": true,
     "fields": [
       {
-        "name": "enableSave",
+        "name": "enableBrackets",
         "type": "boolean",
-        "label": "Enable saving state of course presentation.",
-        "optional": true,
-        "description": "If this is enabled the content will go to the same state as you left it.",
+        "label": "Enable completion based onward journey",
+        "description": "Change where buttons lead based on percentage completion of task",
         "default": false
+      },
+      {
+        "name": "brackets",
+        "type": "list",
+        "label": "Progression Brackets",
+        "description": "Add progression brackets",
+        "entity": "option",
+        "min": 1,
+        "max": 3,
+        "defaultNum": 1,
+        "field": {
+          "name": "bracket",
+          "type": "group",
+          "label": "Bracket",
+          "fields": [
+            {
+              "name": "lowBracket",
+              "type": "number",
+              "label": "Low Bracket (%)"
+            },
+            {
+              "name": "highBracket",
+              "type": "number",
+              "label": "High Bracket (%)"
+            },
+            {
+              "name": "buttons",
+              "type": "list",
+              "label": "Buttons",
+              "description": "Add buttons to show if percentage is within this bracket",
+              "entity": "option",
+              "min": 1,
+              "max": 3,
+              "defaultNum": 1,
+              "field": {
+                "name": "button",
+                "type": "group",
+                "label": "Button",
+                "fields": [
+                  {
+                    "name": "text",
+                    "type": "text",
+                    "label": "Text"
+                  },
+                  {
+                    "name": "resetQuestion",
+                    "type": "boolean",
+                    "label": "Reset Question",
+                    "optional": true,
+                    "default": false
+                  },
+                  {
+                    "name": "link",
+                    "type": "text",
+                    "label": "Link",
+                    "optional": true
+                  },
+                  {
+                    "name": "slide",
+                    "type": "number",
+                    "description": "Will default to link unless left blank",
+                    "optional": true,
+                    "label": "Anchor To Slide Number"
+                  }
+                ]
+              }
+            }
+          ]
+        }
       }
     ]
   }

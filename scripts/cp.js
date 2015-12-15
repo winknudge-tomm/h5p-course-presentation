@@ -1,5 +1,5 @@
 var H5P = H5P || {};
-// var H5PLocalStorage = new H5PLocalStorage();
+var H5PLocalStorage = new H5PLocalStorage();
 /**
  * Constructor.
  *
@@ -82,6 +82,9 @@ H5P.CoursePresentation = function (params, id, extras) {
   if (!!params.optionalExtras) {
     this.customCSSPath = H5P.getPath(params.optionalExtras.path, this.contentId);
   }
+  if (!!params.progressionSlide) {
+    this.summaryBrackets = params.progressionSlide;
+  }
 
   // Setup "presentation-progress" event listener for all sub modules.
   if (!H5P.jQuery._data( H5P.jQuery(H5P)[0], "events" )) {
@@ -101,10 +104,9 @@ H5P.CoursePresentation = function (params, id, extras) {
       that.attachAllElements();
     }
   });
-
-  // H5PLocalStorage.init(function(){
-  //   console.log("Initiated local storage");
-  // });
+  H5PLocalStorage.init(function(status){
+    console.log("Initiated local storage: ", status);
+  });
 
 };
 
@@ -154,7 +156,7 @@ H5P.CoursePresentation.prototype.attach = function ($container) {
   var that = this;
   this.setActivityStarted();
   if(this.customCSSPath) {
-    console.log(H5P.jQuery('head').append('<link rel="stylesheet" href="' + this.customCSSPath + '">'));
+    H5P.jQuery('head').append('<link rel="stylesheet" href="' + this.customCSSPath + '">');
   }
   //set the progress bar position based on config - defualt setup
   var progressBarTopPlaceHolder = '';
@@ -307,6 +309,7 @@ H5P.CoursePresentation.prototype.attach = function ($container) {
 
   var summarySlideData = [];
   if ((this.editor === undefined) && (this.showSummarySlide || this.hasAnswerElements)) {
+    console.log("create summary slide");
     summarySlideData = {
       elements: [],
       keywords: []
@@ -1273,11 +1276,6 @@ H5P.CoursePresentation.prototype.attachAllElements = function () {
  * @returns {Boolean} Always true.
  */
 H5P.CoursePresentation.prototype.jumpToSlide = function (slideNumber, noScroll) {
-  // H5PLocalStorage.save(this.contentId, {
-  //   activeSlide: slideNumber
-  // }, function(){
-  //   console.log("called back?");
-  // })
   var that = this;
   if (this.editor === undefined) {
     var progressedEvent = this.createXAPIEventTemplate('progressed');
